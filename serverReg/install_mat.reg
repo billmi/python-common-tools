@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AI_Matlib]
+"DisplayName"="AI_Matlib"
+"Description"="AI_Matlib Service"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AI_Matlib\Parameters]
+"AppParameters"=""
+"Application"="D:\\dev\\python\\matlib\\MatService.exe"
+"AppDirectory"="D:\\dev\\python\\matlib"

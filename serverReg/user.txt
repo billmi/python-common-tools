@@ -1,0 +1,9 @@
+instsrv.exe ServiceName srvany.exe
+
+
+
+注册表位置
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\%service_name%\Parameters
+
+
+然后编写注册信息
