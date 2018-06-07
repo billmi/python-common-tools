@@ -89,9 +89,17 @@ def screen_web(httpUrl, savePath):
 def get_mysql_conn(host='127.0.0.1', port=3306, user='root', passwd='root', db='test',charset='utf8'):
     return pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db, charset=charset)
 
+
 '''
-    暂时存档,需要使用后提取
-    
+    返回程序执行目录
+'''
+
+def get_file_dir():
+    return os.path.dirname(os.path.abspath(__file__)) + "\\"
+
+
+'''
+    暂时存档,需要使用后提取    
 '''
 
 def dicom_2png(file):
