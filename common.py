@@ -2,6 +2,7 @@
 import configparser
 import logging
 import os
+import shutil
 import sys
 import time
 import pydicom
@@ -23,11 +24,38 @@ import datetime
 '''
 
 
-def out_put_filelog(taskInfo, fileName='log'):
-    file = fileName + '.txt'
-    with open(file, 'a+') as file:
+def get_file_dir():
+    return os.path.dirname(os.path.abspath(__file__)) + "\\"
+
+
+exe_path = get_file_dir()
+config_file_path = exe_path + 'config.ini'
+log_base = exe_path + 'logs\\'
+log_path = log_base + 'taskLog.txt'
+
+
+def out_put_filelog(taskInfo, fileName='log', tag='[info] : '):
+    _maxFileSize = 1024 * 1024 * 500
+    _logPath = log_path
+    currAction = "a+"
+    suffix = '.log'
+    if len(fileName) > 0:
+        _logPath = log_base + fileName + suffix
+    if os.path.exists(_logPath):
+        fileSize = os.path.getsize(_logPath)
+        if fileSize >= _maxFileSize:
+            print('max ...')
+            bakLogDir = log_base + 'bak\\'
+            if not os.path.exists(bakLogDir):
+                os.mkdir(bakLogDir)
+                time.sleep(1)
+            _nowTime = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+            _bankPath = bakLogDir + fileName + '_' + _nowTime + '.log'
+            shutil.copy(_logPath, _bankPath)
+            currAction = 'w'
+    with open(_logPath, currAction) as file:
         _nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        msg = "taskLog: " + _nowTime + '--' + taskInfo + '--' + " \r\n"
+        msg = _nowTime + ' task:' + fileName + ' ' + tag + '  ' + taskInfo + ' ' + " \r\n"
         file.write(msg)
         file.close()
 
@@ -80,19 +108,22 @@ def screen_web(httpUrl, savePath):
     print(u"---------图片已保存 : " + savePath + "-----------")
     brower.close()
 
+
 '''
     mysql连接,连接池直接使用组件
     标识结果集:
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
 '''
 
-def get_mysql_conn(host='127.0.0.1', port=3306, user='root', passwd='root', db='test',charset='utf8'):
+
+def get_mysql_conn(host='127.0.0.1', port=3306, user='root', passwd='root', db='test', charset='utf8'):
     return pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db, charset=charset)
 
 
 '''
     返回程序执行目录
 '''
+
 
 def get_file_dir():
     return os.path.dirname(os.path.abspath(__file__)) + "\\"
@@ -101,6 +132,7 @@ def get_file_dir():
 '''
     暂时存档,需要使用后提取    
 '''
+
 
 def dicom_2png(file):
     _currFile = file
