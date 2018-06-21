@@ -44,7 +44,6 @@ def out_put_filelog(taskInfo, fileName='log', tag='[info] : '):
     if os.path.exists(_logPath):
         fileSize = os.path.getsize(_logPath)
         if fileSize >= _maxFileSize:
-            print('max ...')
             bakLogDir = log_base + 'bak\\'
             if not os.path.exists(bakLogDir):
                 os.mkdir(bakLogDir)
