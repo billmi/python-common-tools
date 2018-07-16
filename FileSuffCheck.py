@@ -15,22 +15,22 @@ __authro__ = 'Bill'
 class FileSuffCheck(object):
 
     @staticmethod
-    def file_sufis_png(file):
+    def file_sufis_png(file,defsuffix='.png'):
         suffix = os.path.splitext(file)[1].lower()
-        if suffix == '.png':
+        if suffix == defsuffix:
             return True
         return False
 
     @staticmethod
-    def file_sufis_ini(file):
+    def file_sufis_ini(file,defsuffix='.ini'):
         suffix = os.path.splitext(file)[1].lower()
-        if suffix == '.ini':
+        if suffix == defsuffix:
             return True
         return False
 
     @staticmethod
-    def file_sufis_dcm(file):
+    def file_sufis_dcm(file,defsuffix='.dcm'):
         suffix = os.path.splitext(file)[1].lower()
-        if suffix == '.dcm':
+        if suffix == defsuffix:
             return True
         return False
